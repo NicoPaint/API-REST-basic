@@ -14,9 +14,4 @@ async function newCat(){
 }
 
 //con esta parte se muestra una imagen cuando se carga la página
-fetch(URL)
-    .then(res => res.json())
-    .then(data => {
-        const img = document.querySelector('img');
-        img.src = data[0].url;
-    });
+newCat();
