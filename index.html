@@ -8,16 +8,40 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/763/763724.png"> <!-- https://www.flaticon.com/free-icon/kitty_763775?term=cats&page=1&position=17&origin=search&related_id=763775 -->
 </head>
 <body>
     <main>
-        <div class="card-container">
-            <h1>Gatitos Aleatorios</h1>
-            <div class="img-container">
-                <img  alt="Foto de Gatito Aleatorio">
+        <section class="main-randomCats-container">
+            <h2>Gatitos Aleatorios</h2>
+            <div class="randomCats-cards-container">
+                <article class="randomCat--card">
+                    <div class="img-container">
+                        <img  alt="Foto de Gatito Aleatorio" class="img1">
+                    </div>
+                    <button type="button" class="buttonGreen">Agregar a Favoritos</button>
+                </article>
+                <article class="randomCat--card">
+                    <div class="img-container">
+                        <img  alt="Foto de Gatito Aleatorio" class="img2">
+                    </div>
+                    <button type="button" class="buttonGreen">Agregar a Favoritos</button>
+                </article>
+                <article class="randomCat--card">
+                    <div class="img-container">
+                        <img  alt="Foto de Gatito Aleatorio" class="img3">
+                    </div>
+                    <button type="button" class="buttonGreen">Agregar a Favoritos</button>
+                </article>
             </div>
-            <button type="button">New Cat</button>
-        </div>
+            <button type="button" class="buttonGreen newCatButton">New Cats</button>
+        </section>
+        <section class="main-favoriteCats-container">
+            <h2>Gatitos Favoritos</h2>
+            <div class="favoriteCats-cards-container">
+
+            </div>
+        </section>
     </main>
     <script src="./main.js"></script>
 </body>
