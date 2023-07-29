@@ -30,6 +30,12 @@ main{
     background-color: #fafafa;
 }
 
+#error{
+    font-size: 4rem;
+    font-weight: bold;
+    color: #056;
+}
+
 .buttonGreen{
     width: 60%;
     height: 45px;
