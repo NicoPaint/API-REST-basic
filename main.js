@@ -1,6 +1,6 @@
 const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=3&api_key=live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35';
 const API_URL_FAVORITE = "https://api.thecatapi.com/v1/favourites?api_key=live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35";
-const API_URL_FAVORITE_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/:${id}?api_key=live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35`;
+const API_URL_FAVORITE_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}?api_key=live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35`;
 const API_KEY = 'live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35';
 
 const spanError = document.querySelector('#error');
@@ -60,7 +60,8 @@ async function loadFavoritesCats(){
             const btnText = document.createTextNode('Eliminar de favoritos');
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.classList.add('buttonGreen')
+            btn.classList.add('buttonGreen');
+            btn.onclick = () => deleteFavoriteCats(favoriteCat.id);
     
             const div = document.createElement('div');
             div.classList.add('img-container');
@@ -106,7 +107,7 @@ async function saveFavoriteCats(id){
     
 }
 
-/* async function deleteFavoriteCats(id){
+async function deleteFavoriteCats(id){
     const res = await fetch(API_URL_FAVORITE_DELETE(id),
     {
         method: 'DELETE',
@@ -119,8 +120,9 @@ async function saveFavoriteCats(id){
     }
     else{
         console.log('Gato eliminado exitosamente!');
+        loadFavoritesCats();
     }
-} */
+} 
 
 //con esta parte se muestra una imagen cuando se carga la página
 newCats();
