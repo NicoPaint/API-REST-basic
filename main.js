@@ -1,6 +1,6 @@
-const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=3&api_key=live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35';
-const API_URL_FAVORITE = "https://api.thecatapi.com/v1/favourites?api_key=live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35";
-const API_URL_FAVORITE_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}?api_key=live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35`;
+const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=3';
+const API_URL_FAVORITE = "https://api.thecatapi.com/v1/favourites";
+const API_URL_FAVORITE_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}`;
 const API_KEY = 'live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35';
 
 const spanError = document.querySelector('#error');
@@ -18,7 +18,11 @@ const favoriteSection = document.querySelector('.favoriteCats-cards-container');
 
 async function newCats(){
 
-    const res = await fetch(API_URL_RANDOM);
+    const res = await fetch(API_URL_RANDOM, {
+        headers:{
+            'x-api-key': API_KEY, 
+        }
+    });
     const data = await res.json();
     
     console.log('Random');
@@ -39,7 +43,11 @@ async function newCats(){
 }
 
 async function loadFavoritesCats(){
-    const res = await fetch(API_URL_FAVORITE);
+    const res = await fetch(API_URL_FAVORITE, {
+        headers: {
+            'x-api-key': API_KEY,
+        }
+    });
     const data = await res.json();
 
     console.log('Favorites');
@@ -82,6 +90,7 @@ async function saveFavoriteCats(id){
     const res = await fetch(API_URL_FAVORITE, {
         method: 'POST',
         headers:{
+            'x-api-key': API_KEY,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -111,6 +120,9 @@ async function deleteFavoriteCats(id){
     const res = await fetch(API_URL_FAVORITE_DELETE(id),
     {
         method: 'DELETE',
+        headers: {
+            'x-api-key': API_KEY,
+        }
     })
     const data = await res.json();
 
