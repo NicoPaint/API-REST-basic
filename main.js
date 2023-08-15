@@ -1,6 +1,7 @@
 const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=3';
 const API_URL_FAVORITE = "https://api.thecatapi.com/v1/favourites";
 const API_URL_FAVORITE_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}`;
+const API_URL_UPLOAD = 'https://api.thecatapi.com/v1/images/upload';
 const API_KEY = 'live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35';
 
 const spanError = document.querySelector('#error');
@@ -15,6 +16,8 @@ const newCatButton = document.querySelector('.newCatButton');
 newCatButton.addEventListener('click', newCats);
 
 const favoriteSection = document.querySelector('.favoriteCats-cards-container');
+
+const formUpload = document.querySelector('#uploadingForm');
 
 async function newCats(){
 
@@ -136,6 +139,28 @@ async function deleteFavoriteCats(id){
     }
 } 
 
+async function uploadCatPhoto(){
+    const formData = new FormData(formUpload);
+
+    console.log(formData.get('file'));
+
+    const res = await fetch(API_URL_UPLOAD, {
+        method: 'POST',
+        headers: {
+            'x-api-key': API_KEY,
+        },
+        body: formData,  //la funcion fetch configura automaticamente el content-type cuando destecta que se va a mandar un form-data.
+    })
+
+    const data = await res.json();
+    console.log(data.url);
+
+    if(res.status !== 200){
+        spanError.innerHTML = `Hubo un error ${res.status}`;
+        console.log(res.status);
+    }
+}
+
 //con esta parte se muestra una imagen cuando se carga la página
 newCats();
-loadFavoritesCats();
+loadFavoritesCats()
