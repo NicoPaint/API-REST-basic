@@ -56,7 +56,7 @@ main{
     flex-direction: column;
     align-items: center;
     width: 90%;
-    margin: 15px;
+    margin: 30px;
 }
 
 .main-randomCats-container h2,
@@ -114,7 +114,6 @@ main{
     box-shadow: 0px 0px 4px 1px rgba(89, 73, 30, 0.65);
 }
 
-
 /* Sección de gatos favoritos */
 .favoriteCats-cards-container{
     display: grid;
@@ -122,4 +121,34 @@ main{
     grid-auto-rows: 550px;
     width: 100%;
     gap: 15px;
+}
+
+/* Sección para subir foto */
+.main-uploadingCats-container{
+    display: grid;
+    align-items: center;
+    grid-template-rows: 100px 150px; 
+    width: 65%;
+    height: 250px;
+    padding: 0 20px;
+    background-color: #e8eaee;
+    border-radius: 10px;
+    box-shadow: 2px 4px 8px rgba(89, 73, 30, 0.16);
+}
+
+.main-uploadingCats-container h2{
+    font-size: 3rem;
+    color: #056;
+}
+
+#uploadingForm{
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+}
+
+#uploadingForm button{
+    width: 30%;
+    margin-top: 0;
 }
