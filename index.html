@@ -38,11 +38,14 @@
             <button type="button" class="buttonGreen newCatButton">New Cats</button>
         </section>
         <section class="main-uploadingCats-container">
-            <h2>Sube la foto de tu gatito</h2>
             <form id="uploadingForm">
-                <input type="file" name="file" id="file">
-                <button type="button" class="buttonGreen" onclick="uploadCatPhoto()">Subir foto gatito</button>
+                <input type="file" name="file" id="file" class="disappear">
+                <label for="file" class="buttonGreen">Selecciona tu archivo</label>
+                <div class="uploading-img-container">
+                    <img src="https://img.freepik.com/vector-gratis/ilustracion-contorno-gato-diseno-plano_23-2149264418.jpg?t=st=1693267675~exp=1693268275~hmac=72b19cb16288f5e406a16ed60a7bd7cc27ac8e7bcb171b8a380a05fa053fa246" alt="Foto preliminar de tu gato">
+                </div>
             </form>
+            <button type="button" class="buttonGreen" onclick="uploadCatPhoto()">Sube la foto de tu gatito</button>
         </section>
         <section class="main-favoriteCats-container">
             <h2>Gatitos Favoritos</h2>
