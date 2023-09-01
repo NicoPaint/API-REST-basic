@@ -20,7 +20,7 @@ const favoriteSection = document.querySelector('.favoriteCats-cards-container');
 const formUpload = document.querySelector('#uploadingForm');
 
 async function newCats(){
-
+    
     const res = await fetch(API_URL_RANDOM, {
         headers:{
             'x-api-key': API_KEY, 
@@ -39,10 +39,10 @@ async function newCats(){
         catImg1.src = data[0].url;
         catImg2.src = data[1].url;
         catImg3.src = data[2].url;
-
+        
         favoriteButtons.forEach((button, index) => button.onclick = () => saveFavoriteCats(data[index].id));
     }
-
+    
 }
 
 async function loadFavoritesCats(){
@@ -52,34 +52,34 @@ async function loadFavoritesCats(){
         }
     });
     const data = await res.json();
-
+    
     console.log('Favorites');
     console.log(data);
-
+    
     if(res.status !== 200){
         spanError.innerHTML = `Hubo un error ${res.status}`;
         console.log(res.status);
     }
     else{
         favoriteSection.innerHTML = "";
-
+        
         data.forEach(favoriteCat => {
             const img = document.createElement('img');
             img.alt = 'Foto de Gatito Favorito';
             img.src = favoriteCat.image.url;
-    
+            
             const btnText = document.createTextNode('Eliminar de favoritos');
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.classList.add('buttonGreen');
             btn.onclick = () => deleteFavoriteCats(favoriteCat.id);
-    
+            
             const div = document.createElement('div');
             div.classList.add('img-container');
-    
+            
             const article = document.createElement('article');
             article.classList.add('favoriteCat-card');
-    
+            
             div.appendChild(img);
             btn.appendChild(btnText);
             article.appendChild(div);
@@ -107,7 +107,7 @@ async function saveFavoriteCats(id){
     const data = await res.json();
     console.log('sava data');
     console.log(data);
-
+    
     if(res.status !== 200){
         spanError.innerHTML = `Hubo un error ${res.status}`;
         console.log(res.status);
@@ -128,7 +128,7 @@ async function deleteFavoriteCats(id){
         }
     })
     const data = await res.json();
-
+    
     if(res.status !== 200){
         spanError.innerHTML = `Hubo un error ${res.status}`;
         console.log(res.status);
@@ -141,9 +141,9 @@ async function deleteFavoriteCats(id){
 
 async function uploadCatPhoto(){
     const formData = new FormData(formUpload);
-
+    
     console.log(formData.get('file'));
-
+    
     const res = await fetch(API_URL_UPLOAD, {
         method: 'POST',
         headers: {
@@ -151,15 +151,50 @@ async function uploadCatPhoto(){
         },
         body: formData,  //la funcion fetch configura automaticamente el content-type cuando destecta que se va a mandar un form-data.
     })
-
+    
     const data = await res.json();
     console.log(data.url);
-
+    
     if(res.status !== 200){
         spanError.innerHTML = `Hubo un error ${res.status}`;
         console.log(res.status);
     }
 }
+
+//Lógica para la previsualización de la imagen que se va a subir
+//se define la imagen por defecto cuando no se ha subido ninguna foto
+const defaultFile = "https://img.freepik.com/vector-gratis/ilustracion-contorno-gato-diseno-plano_23-2149264418.jpg?t=st=1693267675~exp=1693268275~hmac=72b19cb16288f5e406a16ed60a7bd7cc27ac8e7bcb171b8a380a05fa053fa246";
+
+//se traen el input tipo file y la imagen de previsualizacion 
+const catFile = document.querySelector('#file');
+const uploadingImg = document.querySelector('#uploadingImg');
+const uploadingName = document.querySelector('#uploadingName');
+
+//se agrega un event listener al input para que cada vez que cambie se ejecute la funcion preview
+catFile.addEventListener('change', event => {previewPhoto(event)});
+
+function previewPhoto(event){
+    //aca se valida si el objetivo del evento, en este caso el input tipo file, capturó el archivo
+    if(event.target.files[0]){
+        console.log(event.target.files[0]);
+        const reader = new FileReader();  //se instancia un objeto tipo FileReader para poder extraer la imagen y usarla como src. Esta función es asincrona.
+
+        //El evento load ejecuta la logica escrita en el una vez que el FileReader haya procesado la imagen exitosamente.
+        reader.onload = e => {
+            uploadingImg.src = e.target.result;   //cambia la src de la imagend de previsualización por el resultado obtenido del objetivo del evento que en este caso es el mismo reader. e.target = reader.
+
+            uploadingName.textContent = event.target.files[0].name; //Con esto se agrega el nombre del archivo que se esta previsualizando.
+            
+        };
+        reader.readAsDataURL(event.target.files[0]);  //acá se le pasa el archivo (imagen) que va a procesar (leer) en formato de DataURL (base 64) que cuando sea procesada correctamente dispará el evento load del reader y ejecutará la lógica escrita en el.
+    }
+    //si no capturó nada se muestra la imagen por defecto definida anteriormente y no se muestra ningún nombre.
+    else{
+        uploadingImg.src = defaultFile;
+        uploadingName.textContent = '';
+    }
+}
+
 
 //con esta parte se muestra una imagen cuando se carga la página
 newCats();
