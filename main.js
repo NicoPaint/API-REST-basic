@@ -1,9 +1,11 @@
+//Aqui van registrados todos lo end points que se usan en el proyecto
 const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=3';
 const API_URL_FAVORITE = "https://api.thecatapi.com/v1/favourites";
 const API_URL_FAVORITE_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}`;
 const API_URL_UPLOAD = 'https://api.thecatapi.com/v1/images/upload';
 const API_KEY = 'live_UhyG4bxBLmACFEMMq1LJPUbiuA2ZnMRTpEdKfLq9frYrWuomfpp6nl8AVBaJ0G35';
 
+//Aca se seleccionan varios elementos del HTML
 const spanError = document.querySelector('#error');
 
 const catImg1 = document.querySelector('.img1');
@@ -19,6 +21,7 @@ const favoriteSection = document.querySelector('.favoriteCats-cards-container');
 
 const formUpload = document.querySelector('#uploadingForm');
 
+//Esta es lla funcion que carga imagenes aleatorias de la API en la sección de gatos aleatorios
 async function newCats(){
     
     const res = await fetch(API_URL_RANDOM, {
@@ -45,6 +48,7 @@ async function newCats(){
     
 }
 
+//Esta es la funcion que renderiza las imagenes que han sido guardadas en favoritos.
 async function loadFavoritesCats(){
     const res = await fetch(API_URL_FAVORITE, {
         headers: {
@@ -89,6 +93,7 @@ async function loadFavoritesCats(){
     }
 }
 
+//Esta es la función para guardar gatos de la sección aleatoria a la de favoritos
 async function saveFavoriteCats(id){
     const res = await fetch(API_URL_FAVORITE, {
         method: 'POST',
@@ -119,6 +124,7 @@ async function saveFavoriteCats(id){
     
 }
 
+//Esta es la funcion para eliminar gatos de la sección de favoritos
 async function deleteFavoriteCats(id){
     const res = await fetch(API_URL_FAVORITE_DELETE(id),
     {
@@ -139,6 +145,7 @@ async function deleteFavoriteCats(id){
     }
 } 
 
+//Esta es la funcion para subir las fotos a la API
 async function uploadCatPhoto(){
     const formData = new FormData(formUpload);
     
